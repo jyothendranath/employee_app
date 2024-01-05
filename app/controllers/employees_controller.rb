@@ -125,12 +125,14 @@ class EmployeesController < ApplicationController
         total_days_in_month = Date.new(start_date.year, start_date.month, -1).day
 
         if start_date.month == employee.date_of_joining.month && start_date.year == employee.date_of_joining.year
-          total_salary += (employee.salary / total_days_in_month.to_f) * (total_days_in_month - (employee.date_of_joining.day - 1))
+          days_worked_in_month = total_days_in_month - (employee.date_of_joining.day - 1)
         elsif start_date.month == (employee.date_of_joining.month % 12) + 1 && start_date.year == employee.date_of_joining.year
-          total_salary += (employee.salary / total_days_in_month.to_f) * [employee.date_of_joining.day - 1, total_days_in_month].min
+          days_worked_in_month = [employee.date_of_joining.day - 1, total_days_in_month].min
         else
-          total_salary += employee.salary
+          days_worked_in_month = total_days_in_month
         end
+
+        total_salary += (employee.salary / total_days_in_month.to_f) * days_worked_in_month
       end
 
       start_date += 1.month
