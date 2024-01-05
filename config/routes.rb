@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get '/employees/:id/modify', to: 'employees#modify', as: :modify_employee
   patch '/employees/:id', to: 'employees#update', as: :update_employee
   delete '/employees/:id', to: 'employees#destroy',as: :delete_employee
+  get '/employees/tax_details', to: 'employees#employees_tax_deduction'
+  get '/employee/:id/tax_detail', to: 'employees#get_employee_tax_detuction'
 
-   root "employees#index"
+
+  root "employees#index"
 end
