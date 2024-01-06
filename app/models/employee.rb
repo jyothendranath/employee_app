@@ -1,5 +1,6 @@
 class Employee < ApplicationRecord
-  validates :first_name, :last_name, :email, :date_of_joining, presence: true
+  serialize :phone_numbers, Array
+  validates :first_name, :last_name, :email, :date_of_joining,:phone_numbers, presence: true
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: 'must be a valid email address' }
 
